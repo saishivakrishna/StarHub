@@ -138,6 +138,127 @@
 .floating { animation: floating 5s ease-in-out infinite; }
 .delay { animation-delay: 1s; }
 .delay2 { animation-delay: 2s; }
+
+/* 📱 Responsive Mobile View */
+@media (max-width: 768px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  header {
+    padding: 80px 10px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+  }
+
+  .logo {
+    width: 90px;
+    top: 15px;
+    left: 15px;
+  }
+
+  section {
+    padding: 40px 5%;
+    margin-top: 20px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    font-size: 1rem;
+    padding: 25px;
+  }
+
+  .circle-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 50px 0;
+  }
+
+  .circle {
+    width: 220px;
+    height: 220px;
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .item {
+    flex-direction: column;
+  }
+
+  .arrow {
+    display: none; /* hide arrows on small screens */
+  }
+
+  .desc {
+    font-size: 1rem;
+  }
+
+  .video-container {
+    padding: 40px 0;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  video {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .sliders {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .vv {
+    width: 200px;
+    transform: scale(1);
+  }
+
+  footer {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .cta .btn {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    text-align: center;
+  }
+
+  .counter-box .icon {
+    width: 120px;
+  }
+
+  .number {
+    font-size: 18px;
+  }
+}
+
 </style>
 <!-- Added premium UI + animations -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
