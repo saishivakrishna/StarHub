@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Influencer Registration - Influencer Connect Hub</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #4b0082, #6a11cb, #2575fc);
+        color: white;
+    }
+
+    header {
+        padding: 20px 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    header img {
+        width: 120px;
+    }
+
+    .welcome-heading {
+        text-align: center;
+        font-size: 38px;
+        font-weight: 700;
+        margin-top: 30px;
+        margin-left:400px;
+       text-shadow: 0 2px 10px black;
+       font-size: 70px;
+    }
+
+    .container {
+        width: 1300px;
+        margin: 50px auto;
+        display: flex;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(18px);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .image-box {
+        width: 45%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .image-box img {
+        width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .form-box {
+        width: 55%;
+        padding: 30px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    fieldset {
+        width: 100%;
+        border: 2px solid #ffd700;
+        border-radius: 15px;
+        padding: 25px;
+    }
+
+    legend {
+        padding: 8px 15px;
+        background: #ffd700;
+        color: black;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 30px; /* Increased space between rows and columns */
+        margin-top: 15px;
+    }
+
+    label {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 13px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 15px;
+    }
+
+    textarea {
+        grid-column: span 2;
+    }
+
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        background: #ffd700;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    button:hover {
+        background: #ffb300;
+    }
+
+    a {
+        color: white;
+        text-decoration: underline;
+        display: block;
+        text-align: center;
+        margin-top: 12px;
+    }
+       #soundToggle:hover {
+    box-shadow: 0 0 10px white;
+}
+section {
+        width: 100%;
+        padding: 70px 100px;
+        text-align: center;
+    }
+
+    .about {
+        width: auto;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+    }
+
+    .contact {
+        background: #00000041;
+         width: auto;
+    }
+
+    .contact-info {
+        font-size: 18px;
+        line-height: 30px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Logo">
+    <h1 class="welcome-heading">Welcome Influencer ✨</h1>
+</header>
+
+
+
+<div class="container">
+
+    <div class="image-box" style="position:relative;">
+
+    <video id="brandVideo" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;">
+        <source src="vd.mp4" type="video/mp4">
+    </video>
+
+    <!-- Speaker Button -->
+    <button id="soundToggle"
+        style="position:absolute; bottom:20px; right:20px; background:rgba(0,0,0,0.5);
+               border:none; color:white; padding:10px 12px; border-radius:50%; cursor:pointer;
+               font-size:22px;">
+        🔇
+    </button>
+</div>
+<script>
+const video = document.getElementById("brandVideo");
+const btn = document.getElementById("soundToggle");
+
+btn.addEventListener("click", () => {
+    video.muted = !video.muted;  // Toggle sound mute/unmute
+
+    if (video.muted) {
+        btn.textContent = "🔇"; // Mute icon
+    } else {
+        btn.textContent = "🔊"; // Sound icon
+        video.play(); // Ensure video continues playing after unmute
+    }
+});
+</script>
+
+
+    <div class="form-box">
+        <fieldset>
+            <legend>Register as Influencer</legend>
+
+            <form id="influencerForm" onsubmit="return validateForm()">
+                <div class="form-grid">
+                    <div>
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="Enter Your Name" required>
+                    </div>
+
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="Enter Email ID" required>
+                    </div>
+
+                    <div>
+                        <label>Followers</label>
+                        <input type="number" id="followers" placeholder="Ex: 20000" required>
+                    </div>
+
+                    <div>
+                        <label>Instagram Profile URL</label>
+                        <input type="url" id="insta" placeholder="https://instagram.com/yourprofile" required>
+                    </div>
+
+                    <div>
+                        <label>YouTube Channel URL</label>
+                        <input type="url" id="youtube" placeholder="https://youtube.com/yourchannel">
+                    </div>
+
+                    <div>
+                        <label>State</label>
+                        <input type="text" id="state" placeholder="Enter State" required>
+                    </div>
+
+                    <div>
+                        <label>District</label>
+                        <input type="text" id="district" placeholder="Enter District" required>
+                    </div>
+
+                    <div>
+                        <label>ZIP / Postal Code</label>
+                        <input type="number" id="zip" placeholder="500001" required>
+                    </div>
+ <div>
+                        <label>Platform</label>
+                        <input type="number" id="zip" placeholder="Ex: Instagram, youtube..." required>
+                    </div>
+                    
+ <div>
+                        <label>Category</label>
+                        <input type="number" id="zip" placeholder="Ex: Fastion, Food etc.," required>
+                    </div>
+
+
+                    
+                </div>
+
+                <label style="margin-top:10px; display:flex; gap:6px; align-items:center;">
+                    <input type="checkbox" id="agree" required>
+                    I agree to the <a href="agreement.html" target="_blank">Terms & Conditions</a>
+                </label>
+
+                <button type="submit">Register Now</button>
+            </form>
+
+            <a href="index.html">⬅ Back to Home</a>
+        </fieldset>
+    </div>
+</div>
+<section id="about" class="about">
+    <h2>About Influencer Connect Hub</h2>
+    <p>
+        Influencer Connect Hub bridges the gap between <b>Brands</b> and <b>Influencers</b>.
+        We connect brands with the perfect influencers to promote their products and boost visibility.
+    </p>
+</section>
+
+<!-- ✅ CONTACT SECTION -->
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+        📧 Email: support@influencerhub.com <br>
+        📞 Phone: +91 98765 43210 <br>
+        📍 Address: Hyderabad, Telangana, India
+    </div>
+</section>
+
+<script>
+function validateForm() {
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let followers = document.getElementById("followers").value.trim();
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Phone number must be exactly 10 digits.");
+        return false;
+    }
+
+    if (followers < 1000) {
+        alert("Minimum 1000 followers required.");
+        return false;
+    }
+
+    if (!document.getElementById("agree").checked) {
+        alert("You must agree to the Terms & Conditions.");
+        return false;
+    }
+
+    alert("Registration Successful!");
+    return true;
+}
+</script>
+
+</body>
+</html>

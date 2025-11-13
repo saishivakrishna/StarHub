@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Registration - Influencer Connect Hub</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #4b0082, #6a11cb, #2575fc);
+        color: white;
+    }
+
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    nav a {
+        color: #ffd700;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 25px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    /* Container (Form + Image) */
+    .container {
+        width: 1100px;
+        margin: auto;
+        margin-top: 40px;
+        display: flex;
+        gap: 0;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(18px);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+    }
+
+    .image-box {
+        width: 45%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-box {
+        width: 55%;
+        padding: 40px 40px;
+        color: white;
+    }
+
+    fieldset {
+        border: 2px solid #ffd700;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    legend {
+       padding: 8px 15px;
+        background: #ffd700;
+        color: black;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 13px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: none;
+        font-size: 15px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.85);
+    }
+
+    .flex-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+        background: #ffd700;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    button:hover {
+        background: #ffb300;
+    }
+
+    section {
+        width: 100%;
+        padding: 70px 100px;
+        text-align: center;
+    }
+
+    .about {
+         width: auto;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+    }
+
+    .contact {
+         width: auto;
+        background: #00000041;
+    }
+
+    .contact-info {
+        font-size: 18px;
+        line-height: 30px;
+        margin-top: 20px;
+    }
+    .welcome-heading {
+        text-align: center;
+        font-size: 38px;
+        font-weight: 700;
+        margin-top: 30px;
+        margin-left:250px;
+       text-shadow: 0 2px 10px black;
+       font-size: 70px;
+    }
+     a {
+        color: white;
+        text-decoration: underline;
+        display: block;
+        text-align: center;
+        margin-top: 12px;
+    }
+    #soundToggle:hover {
+    box-shadow: 0 0 10px white;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png" class="logo" alt="Influencer Connect Hub Logo">
+      <h1 class="welcome-heading">Welcome Brands</h1>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- ✅ Registration Section -->
+<div id="register" class="container">
+
+  <div class="image-box" style="position:relative;">
+
+    <video id="brandVideo" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;">
+        <source src="assets/list/vd.mp4" type="video/mp4">
+    </video>
+
+    <!-- Speaker Button -->
+    <button id="soundToggle"
+        style="position:absolute; bottom:20px; right:20px; background:rgba(0,0,0,0.5);
+               border:none; color:white; padding:10px 12px; border-radius:50%; cursor:pointer;
+               font-size:22px;">
+        🔇
+    </button>
+</div>
+<script>
+const video = document.getElementById("brandVideo");
+const btn = document.getElementById("soundToggle");
+
+btn.addEventListener("click", () => {
+    video.muted = !video.muted;  // Toggle sound mute/unmute
+
+    if (video.muted) {
+        btn.textContent = "🔇"; // Mute icon
+    } else {
+        btn.textContent = "🔊"; // Sound icon
+        video.play(); // Ensure video continues playing after unmute
+    }
+});
+</script>
+
+
+
+
+    <div class="form-box">
+
+        <fieldset>
+            <legend>Brand Registration</legend>
+
+            <form id="brandForm" onsubmit="return validateForm()">
+
+                <label>Brand / Company Name</label>
+                <input type="text" id="brandName" placeholder="Enter brand name" required>
+
+                <label>Owner / Contact Person</label>
+                <input type="text" id="owner" placeholder="Enter owner name" required>
+
+                <label>Business Email</label>
+                <input type="email" id="email" placeholder="Enter business email" required>
+
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="10 digit phone number" maxlength="10" required>
+
+                <label>Location</label>
+
+                <div class="flex-row">
+                    <input type="text" id="state" placeholder="State" required>
+                    <input type="text" id="district" placeholder="District" required>
+                </div>
+
+                <div class="flex-row">
+                    <input type="text" id="pincode" placeholder="PIN Code" maxlength="6" required>
+                    <input type="text" id="landmark" placeholder="Landmark / Street Name" required>
+                </div>
+
+                <label>Website / Social Media Link</label>
+                <input type="text" id="website" placeholder="Website / Instagram / Facebook URL">
+
+                <label>Tell us about your product</label>
+                <textarea id="aboutProduct" placeholder="Describe your brand or product" rows="3" required></textarea>
+
+                <button type="submit">Register</button>
+
+            </form>
+            <a href="index.html">⬅ Back to Home</a>
+        </fieldset>
+    </div>
+</div>
+<br><br>
+
+<!-- ✅ ABOUT SECTION -->
+<section id="about" class="about">
+    <h2>About Influencer Connect Hub</h2>
+    <p>
+        Influencer Connect Hub bridges the gap between <b>Brands</b> and <b>Influencers</b>.
+        We connect brands with the perfect influencers to promote their products and boost visibility.
+    </p>
+</section>
+
+<!-- ✅ CONTACT SECTION -->
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+        📧 Email: support@influencerhub.com <br>
+        📞 Phone: +91 98765 43210 <br>
+        📍 Address: Hyderabad, Telangana, India
+    </div>
+</section>
+
+<script>
+function validateForm() {
+    let phone = document.getElementById("phone").value;
+    let pin = document.getElementById("pincode").value;
+    let email = document.getElementById("email").value;
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Phone number must be exactly 10 digits.");
+        return false;
+    }
+
+    if (!/^[0-9]{6}$/.test(pin)) {
+        alert("PIN Code must be exactly 6 digits.");
+        return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert("Enter a valid email address.");
+        return false;
+    }
+
+    alert("Registration successful!");
+    return true;
+}
+</script>
+
+</body>
+</html>

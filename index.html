@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="logo.png">
+    <title>Influencer Connect Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4b0082, #6a11cb, #2575fc);
+            color: #fff;
+            position: relative;
+            font-size: 22px; /* increased text size */
+            font-weight: 800; /* extra bold */
+        }
+        header {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.4));
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+        }
+        header h1 {
+            font-size: 4.5rem; /* bigger text */
+            font-weight: 900; /* extra bold */
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+        }
+        header p {
+            font-size: 2rem; /* bigger */
+            font-weight: 700;
+            opacity: 0.95;
+             color: #bac1f76a; 
+        }
+        
+
+        .logo {
+            width: 140px;
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            animation: fadeIn 1.2s ease-in-out;
+            filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.5));
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        section {
+            padding: 70px 12%;
+            margin-top: 40px;
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(255,255,255,0.15);
+            padding: 40px; /* bigger padding */
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            color: #fff;
+            font-size: 1.4rem; /* bigger text */
+            font-weight: 800; /* extra bold */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .cta {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            color: #fff;
+            font-size: 1.3rem;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.3);
+        }
+        footer {
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 50px;
+        }
+    
+/* Circle Styles */
+.circle-section {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 120px 0;
+}
+.circle {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 900;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-25px); }
+    100% { transform: translateY(0px); }
+}
+.floating { animation: floating 5s ease-in-out infinite; }
+.delay { animation-delay: 1s; }
+.delay2 { animation-delay: 2s; }
+</style>
+<!-- Added premium UI + animations -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Hover animations */
+    .card:hover {
+      transform: translateY(-10px) scale(1.03);
+      transition: all 0.4s ease;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      transition: all 0.4s ease;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+
+    /* Scroll animations */
+ 
+    .video-container {
+  text-align: center;
+   padding: 100px;
+        margin-left: 150px;
+        background-color: #ffffff4f;
+        margin-top: 10px;
+        border-radius: 20%;
+}
+.features {
+  display: flex;
+ 
+  margin-top: 40px;
+}
+
+.circles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+
+
+
+.arrow {
+  width: 150px; /* adjust size */
+  margin-left: 20px;
+}
+
+.desc {
+   font-style: italic;
+  font-size: 25px;
+  color: #ffffff;
+  text-shadow: 0 1px 1px #c9d4e7;
+}
+
+   .counter-box {
+        text-align: center;
+    }
+
+    .icon {
+        width: 200px;
+        box-shadow: 0 0 50px rgb(214, 29, 82);  /* change size if required */
+    }
+
+    .number {
+        font-size: 26px;
+        font-weight: bold;
+        margin-top: 8px;
+        display: block;
+    }
+     .sliders {
+        display: flex;
+        gap: 20px;
+        width: 90%;
+        overflow: hidden;
+        position: relative;
+        margin-left: 75px;
+    }
+
+    .slider-track {
+        display: flex;
+        gap: 20px;
+        animation: scrollVideos 18s linear infinite;
+    }
+
+    .vv {
+        width: 260px;
+        border-radius: 15px;
+        opacity: 0.4;
+        transition: 0.4s ease;
+        transform: scale(0.85);
+        pointer-events: none;
+    }
+
+    /* Highlight the middle video */
+    .highlight {
+        opacity: 1 !important;
+        transform: scale(1.2);
+        box-shadow: 0px 0px 100px rgba(68, 61, 61, 0.6);
+    }
+
+    @keyframes scrollVideos {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+   
+   
+    
+  </style>
+</head>
+<body>
+   
+
+<header>
+    <img src="logo.png" alt="Logo" class="logo" id="animatedImage">
+    <h1>Influencer Connect Hub</h1>
+    <p>Where brands meet influence. Where influence becomes impact.</p>
+    <div style="margin-top: 30px;">
+        <a href="brands.html" 
+           style="text-decoration:none; background:#ff9f43; padding:14px 28px; border-radius:40px; 
+                  font-size:1.2rem; font-weight:700; color:#fff; margin-right:15px;">
+           Register as Brand
+        </a>
+
+        <a href="influencers.html" 
+           style="text-decoration:none; background:#6a11cb; padding:14px 28px; border-radius:40px; 
+                  font-size:1.2rem; font-weight:700; color:#fff;">
+           Register as Influencer
+        </a>
+    </div>
+  
+</header>
+
+<section>
+    <div class="title">Business Overview</div>
+    
+    <p style="text-align:center; max-width:900px; margin:auto; text-shadow: 2px 0 5px black;">
+        Influencer Connect Hub is a platform designed to connect brands, startups, small businesses, and product owners with the right social media influencers for product promotion and marketing campaigns.
+    </p>
+    </section>
+    <br>
+   
+       
+        <div style="display:flex;   height: 600px; width: 100vw;" >
+            <div style="display:flex;  flex-direction: column; "> 
+             <img style="border-radius: 50%;   width: 200px; margin-top:50px;
+    height: 200px;" src="https://img.freepik.com/premium-vector/social-media-influencer-illustration-with-man-holding-megaphone-different-social-media-icons_162329-422.jpg">
+    <img  style="border-radius: 50%;   width: 150px; margin-top: 70px;
+    height: 150px;" src="assets/img/img2.gif">
+<img  style="border-radius: 50%;   width: 170px; margin-top: 160px; margin-left: 80px;
+    height: 170px;" src="https://img.freepik.com/free-vector/influencer-woman-recording-new-video_23-2148546360.jpg?semt=ais_hybrid&w=740&q=80">    
+</div>
+
+       
+        <img src="https://www.myhaulstore.com/media/MHS-Images//social-media-influencer-agency-india-/social-media-influencer-agency-india-01.png"> 
+        
+
+         <div >
+            <img style="border-radius: 50%;   width: 250px;
+    height: 250px;
+    " src="assets/img/img1.gif">
+         </div>
+
+ <div class="video-container" style="text-align:center;">
+  <video id="videoPlayer" width="300" style="box-shadow: 0 0 50px black;" autoplay muted></video>
+  <h3 id="videoName" style="color:white; margin-top:10px;"></h3>
+</div>
+<script>
+    // Array of videos and names
+const videos = [
+  { src: "assets/list/food1.mp4", name: "Food" },
+  { src: "assets/list/fastion.mp4", name: "Fastion" },
+  { src: "assets/list/jew.mp4", name: "Jewellery" },
+  { src: "assets/list/cosmetics.mp4", name: "Cosmetics" },
+  { src: "assets/list/mobiles.mp4", name: "Mobiles" },
+   { src: "assets/list/car.mp4", name: "Cars" }
+];
+
+let index = 0;
+const videoPlayer = document.getElementById("videoPlayer");
+const videoName = document.getElementById("videoName");
+
+// Function to change video
+function changeVideo() {
+  videoPlayer.src = videos[index].src;
+  videoName.innerText = videos[index].name;
+
+  index = (index + 1) % videos.length; // Loop back after last video
+}
+
+// First call
+changeVideo();
+
+// Change video every 3 seconds
+setInterval(changeVideo, 3000);
+
+</script>
+
+    </div>
+    
+
+
+    <section class="features">
+  <div class="circles-container">
+
+    <div class="item">
+      <div class="circle">Brands<br><small>Get influencers instantly</small></div>
+      <img src="assets/img/arrow.gif" class="arrow">
+      <p class="desc">Post your product and instantly connect with influencers who are interested in promoting it.</p>
+    </div>
+
+    <div class="item">
+      <div class="circle">Influencers<br><small>Find paid collaborations</small></div>
+      <img src="assets/img/arrow.gif" class="arrow">
+      <p class="desc">Browse brand campaigns, apply for paid promos, and grow your social media influence.</p>
+    </div>
+
+    <div class="item">
+      <div class="circle">Campaigns<br><small>Track promotions</small></div>
+       <img src="assets/img/arrow.gif" class="arrow">
+      <p class="desc">Monitor engagement, deliverable status, and performance of influencer promotions in real time.</p>
+    </div>
+
+  </div>
+</section>
+
+<div style="display: flex; justify-content: center; gap: 25px;">
+<!-- ✅ LIKE -->
+<div class="counter-box">
+    <img src="assets/like/likes.png" class="icon" alt="Likes">
+    <span class="number like-count">100</span>
+</div>
+
+<!-- ✅ COMMENT -->
+<div class="counter-box">
+    <img src="assets/like/comments.png" class="icon" alt="Comments">
+    <span class="number comment-count">20</span>
+</div>
+
+<!-- ✅ REQUEST -->
+<div class="counter-box">
+    <img src="assets/like/requests.png" class="icon" alt="Requests">
+    <span class="number request-count">5</span>
+</div>
+</div>
+
+
+<script>
+    // get all counters
+    const like = document.querySelector(".like-count");
+    const comment = document.querySelector(".comment-count");
+    const request = document.querySelector(".request-count");
+
+    // increasing numbers every 1 sec
+    setInterval(() => {
+        like.innerText = Number(like.innerText) + 1000+ Math.floor(Math.random() * 3); // random likes
+        comment.innerText = Number(comment.innerText) + 1;
+        request.innerText = Number(request.innerText) + 1;
+    }, 100);
+</script>
+<br><br>
+
+<div class="sliders">
+  <div class="slider-track" id="videoTrack">
+
+    <!-- Original videos -->
+    <video class="vv" src="/assets/slides/VID-20251112-WA0006.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0007.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0008.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0009.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0010.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0011.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0012.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0013.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0014.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0015.mp4" muted loop autoplay></video>
+
+    <!-- Duplicate set for seamless loop -->
+    <video class="vv" src="/assets/slides/VID-20251112-WA0006.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0007.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0008.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0009.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0010.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0011.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0012.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0013.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0014.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0015.mp4" muted loop autoplay></video>
+
+  </div>
+</div>
+
+<script>
+const vi = document.querySelectorAll("video");
+
+function highlightCenterVideo() {
+  const center = window.innerWidth / 2;
+
+  vi.forEach(video => {
+    const rect = video.getBoundingClientRect();
+    const videoCenter = rect.left + rect.width / 2;
+
+    if (Math.abs(center - videoCenter) < 150) {
+      video.classList.add("highlight");
+    } else {
+      video.classList.remove("highlight");
+    }
+  });
+}
+
+setInterval(highlightCenterVideo, 200);
+</script>
+
+
+
+<section>
+    <div class="title">Problem We Are Solving</div>
+    <div class="grid">
+        <div class="card">
+            <strong>For Brands:</strong><br><br>
+            ❌ Hard to find suitable influencers<br>
+            ❌ No guarantee influencers will respond<br>
+            ❌ Time-consuming to negotiate & track campaigns
+        </div>
+        <div class="card">
+            <strong>For Influencers:</strong><br><br>
+            ❌ No platform to get consistent paid collaborations<br>
+            ❌ Struggle to reach brands beyond their own audience
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="title">The Solution</div>
+    <div class="grid">
+        <div class="card"><strong>Brands/Product Owners</strong><br><br>Just connect with as, we will promote your products with influencers.</div>
+        <div class="card"><strong>Influencers/Creators</strong><br><br>Get listed, receive paid work, focus on content instead of negotiation.</div>
+    </div>
+    <p style="text-align:center; margin-top:20px;"> <strong>WE ACT AS THE BRIDGE BETWEEN BRANDS AND INFLUENCERS</strong></p>
+</section>
+
+<section >
+    <div class="title">Unique Selling Points</div>
+    <div class="grid">
+        <div class="card">✔ Verified influencer profiles</div>
+        <div class="card">✔ Transparent pricing and analytics</div>
+        <div class="card">✔ End-to-end campaign management</div>
+        <div class="card">✔ In-house creative strategy</div>
+    </div>
+</section>
+
+<section>
+    <div class="title">Revenue Model</div>
+    <div class="grid">
+        <div class="card">💰 Commission from campaigns</div>
+        <div class="card">💼 Subscription (Premium influencer listing)</div>
+        <div class="card">🚀 Premium campaigns (Strategy + creatives)</div>
+    </div>
+</section>
+
+<section style="text-align:center;">
+    <div class="title">Call To Action</div>
+    <p>👉 Are you a brand struggling to reach the right customers?</p>
+    <p>👉 Are you an influencer looking for paid promotions?</p>
+   <br>
+    <div class="cta">
+        <a class="btn" href="brands.html">Submit Collaboration Request</a>
+        <a class="btn" href="influencers.html" style="background:#6a11cb; margin-left:20px;">Register as Influencer</a>
+    </div>
+</section>
+
+<footer>
+    © 2025 Influencer Connect Hub. All Rights Reserved.
+</footer>
+
+<script>
+// Header fade-in animation
+gsap.from('header h1', {opacity:0, y:-40, duration:1});
+gsap.from('header p', {opacity:0, y:40, duration:1, delay:.3});
+// Cards animation on scroll
+gsap.utils.toArray('.card').forEach((card, i) => {
+    gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: .8,
+        delay: i * 0.1,
+        scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+        }
+    });
+});
+</script>
+  <script>
+    /* Scroll reveal animation */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scroll-visible');
+          observer.unobserve(entry.target);
+        }
+      })
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.card, h1, p, button').forEach(el => {
+      el.classList.add('scroll-hidden');
+      observer.observe(el);
+    });
+  </script>
+
+<section class="circle-section">
+    <div class="circle floating">
+        <h2>Brands</h2>
+        <p>Promote your products with top influencers.</p>
+    </div>
+    <div class="circle floating delay">
+        <h2>Influencers</h2>
+        <p>Get paid collaborations easily.</p>
+    </div>
+    <div class="circle floating delay2">
+        <h2>Campaigns</h2>
+        <p>Track campaign performance in real‑time.</p>
+    </div>
+</section>
+</body>
+</html>
