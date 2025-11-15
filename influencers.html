@@ -166,12 +166,127 @@ section {
         line-height: 30px;
         margin-top: 20px;
     }
+    @media (max-width: 768px) {
+
+    /* HEADER */
+    header {
+        padding: 15px;
+        text-align: center;
+        height: auto;
+    }
+    .logo{
+         width: 30px;
+        margin-bottom: 40px;
+    }
+
+    header img {
+        width: 50px;
+    }
+
+    .welcome-heading {
+         font-size: 28px;
+        margin: 10px 0;
+        margin-left: 20px;
+        text-shadow: 0 0 50px black;
+    }
+
+    /* CONTAINER */
+    .container {
+        width: 80%;
+        height: 600px;
+        flex-direction: row;
+        margin: 20px auto;
+    }
+
+    /* IMAGE BOX */
+    .image-box {
+        width: 50%;
+        padding: 5px;
+    }
+
+    .image-box video {
+        height: 100%;
+    }
+
+    /* FORM BOX */
+    .form-box {
+        width: 50%;
+        padding: 10px;
+    }
+
+    fieldset {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    legend {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    /* FORM GRID */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    /* LABELS */
+    label {
+        font-size: 10px !important;
+        margin-bottom: 1px;
+    }
+
+    /* INPUTS */
+    input, select {
+        font-size: 5px !important;
+        padding: 5px !important;
+        border-radius: 5px;
+        margin-bottom: 2px;
+    }
+
+   
+
+   
+    /* CHECKBOX TEXT */
+    .checkbox-group {
+        font-size: 6px;
+    }
+
+    /* BUTTON */
+    button {
+        font-size: 8px;
+        padding: 6px;
+        border-radius: 20px;
+    }
+
+    /* ABOUT + CONTACT SECTIONS */
+    #about, #contact {
+        padding: 10px !important;
+    }
+
+    #about h2, #contact h2 {
+        font-size: 14px !important;
+    }
+
+    #about p,
+    #contact .contact-info {
+        font-size: 8px !important;
+        line-height: 12px !important;
+    }
+
+    /* BACK TO HOME LINK */
+    a {
+        font-size: 8px;
+        margin-top: 5px;
+    }
+}
+
 </style>
 </head>
 <body>
 
 <header>
-    <img src="logo.png" alt="Logo">
+    <img src="logo.png" alt="Logo" class="logo">
     <h1 class="welcome-heading">Welcome Influencer ✨</h1>
 </header>
 
@@ -216,59 +331,48 @@ btn.addEventListener("click", () => {
 
             <form id="influencerForm" onsubmit="return validateForm()">
                 <div class="form-grid">
-                    <div>
+                    
                         <label>Full Name</label>
                         <input type="text" id="name" placeholder="Enter Your Name" required>
-                    </div>
+                    
 
-                    <div>
+                
                         <label>Phone Number</label>
                         <input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
-                    </div>
+                    
 
-                    <div>
+                    
                         <label>Email</label>
                         <input type="email" id="email" placeholder="Enter Email ID" required>
-                    </div>
+                    
 
-                    <div>
+                    
                         <label>Followers</label>
                         <input type="number" id="followers" placeholder="Ex: 20000" required>
-                    </div>
+            
 
-                    <div>
+                    
                         <label>Instagram Profile URL</label>
                         <input type="url" id="insta" placeholder="https://instagram.com/yourprofile" required>
-                    </div>
-
-                    <div>
+                    
                         <label>YouTube Channel URL</label>
                         <input type="url" id="youtube" placeholder="https://youtube.com/yourchannel">
-                    </div>
-
-                    <div>
+                    
                         <label>State</label>
                         <input type="text" id="state" placeholder="Enter State" required>
-                    </div>
-
-                    <div>
+                   
                         <label>District</label>
                         <input type="text" id="district" placeholder="Enter District" required>
-                    </div>
-
-                    <div>
+                   
                         <label>ZIP / Postal Code</label>
                         <input type="number" id="zip" placeholder="500001" required>
-                    </div>
- <div>
+                    
                         <label>Platform</label>
                         <input type="number" id="zip" placeholder="Ex: Instagram, youtube..." required>
-                    </div>
                     
- <div>
                         <label>Category</label>
                         <input type="number" id="zip" placeholder="Ex: Fastion, Food etc.," required>
-                    </div>
+                    
 
 
                     
