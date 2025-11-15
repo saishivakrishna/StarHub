@@ -138,11 +138,6 @@
 .floating { animation: floating 5s ease-in-out infinite; }
 .delay { animation-delay: 1s; }
 .delay2 { animation-delay: 2s; }
-
-@media screen {
-
-    
-}
 </style>
 <!-- Added premium UI + animations -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -164,17 +159,52 @@
       transition: all 0.4s ease;
       box-shadow: 0 12px 25px rgba(0,0,0,0.4);
     }
+    .flex-images{
+       
+          overflow: hidden;
+          display: flex;
+          flex-direction: row;
+       
+    }
+     .con img {
+    
+    border-radius: 50%;
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+  .con img:nth-child(1) {
+   
+  width: 50px;
+  height: 50px;
+}
+
+.con img:nth-child(2) {
+  width: 200px;
+  height: 200px;
+}
+
+.con img:nth-child(3) {
+  width: 150px;
+  height: 150px;
+}
+
 
     /* Scroll animations */
  
     .video-container {
   text-align: center;
    padding: 100px;
-        margin-left: 150px;
+       justify-items: center;
         background-color: #ffffff4f;
-        margin-top: 10px;
+     
         border-radius: 20%;
-}
+     
+      
+} 
+ .video-container video{
+    width: 250px;
+ }
+
 .features {
   display: flex;
  
@@ -185,6 +215,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  
 }
 
 .item {
@@ -259,7 +290,178 @@
         0%   { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
+ @media (max-width: 768px) {
+
+    body {
+       
+        font-size: 16px;
+    }
+
+    header {
+        padding: 60px 10px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .logo {
+        width: 50px;
+        top: 15px;
+        left: 15px;
+    }
+
+    /* Section spacing */
+    section {
+        padding: 40px 20px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+    .header-buttons a {
+        display: block;
+        margin: 12px auto !important; /* bigger gap in mobile */
+        width: 80%;
+        text-align: center;
+    }
+
+        /* circle images gifs*/
+      
    
+  .con img:nth-child(1) {
+    width: 30px !important;
+    height: 30px !important;
+   margin-right: 60px !important;
+   
+  }
+
+  .con img:nth-child(2) {
+    width: 80px !important;
+    height: 80px !important;
+     margin-right: 20px !important;
+  }
+
+  .con img:nth-child(3) {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .la{
+    display: none;
+  }
+
+    /* Grid becomes single column */
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .card {
+        font-size: 1rem;
+        padding: 20px;
+    }
+
+    /* FIX: Image + video row */
+    .video-container {
+        width: 90%;
+        margin: 20px auto !important;
+        padding: 20px !important;
+        margin-left: 30px !important;
+        border-radius: 20px;
+      align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        box-shadow: 0 0 30px black;
+       
+    }
+     .video-container video{
+        width: 70%;
+        margin-top: 30px;
+        
+     }
+     
+
+    /* First big row of images */
+    .flex-images {
+        flex-direction: column !important;
+        height: auto !important;
+        align-items: center;
+        text-align: center;
+    }
+
+    .flex-images img {
+        width: 60% !important;
+        height: auto !important;
+        margin: 15px auto !important;
+    }
+
+
+    /* Circles layout */
+    .circle-section {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 10px;
+    }
+
+    .circle {
+        width: 250px;
+        height: 250px;
+        font-size: 0.9rem;
+    }
+
+    /* Middle description section */
+    .features {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .item {
+        flex-direction: column;
+    }
+
+    .arrow {
+        width: 100px;
+        transform: rotate(90deg);
+        margin: 15px 0;
+    }
+
+    .desc {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    /* Counter Icons */
+    .icon {
+        width: 70px;
+    }
+
+    .number {
+        font-size: 20px;
+    }
+
+    /* Slider fix */
+    .sliders {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .vv {
+        width: 180px !important;
+        transform: scale(1) !important;
+    }
+    .btn{
+        margin-bottom: 10px;
+    }
+    .circle-section{
+        display: none;
+    }
+}
+
+  
    
     
   </style>
@@ -271,19 +473,19 @@
     <img src="logo.png" alt="Logo" class="logo" id="animatedImage">
     <h1>Influencer Connect Hub</h1>
     <p>Where brands meet influence. Where influence becomes impact.</p>
-    <div style="margin-top: 30px;">
-        <a href="brands.html" 
-           style="text-decoration:none; background:#ff9f43; padding:14px 28px; border-radius:40px; 
-                  font-size:1.2rem; font-weight:700; color:#fff; margin-right:15px;">
-           Register as Brand
-        </a>
+   <div class="header-buttons" style="margin-top: 30px; text-align:center;">
+    <a href="brands.html" 
+       style="text-decoration:none; background:#ff9f43; padding:14px 28px; border-radius:40px; 
+              font-size:1.2rem; font-weight:700; color:#fff; margin-right:15px;">
+       Register as Brand
+    </a>
 
-        <a href="influencers.html" 
-           style="text-decoration:none; background:#6a11cb; padding:14px 28px; border-radius:40px; 
-                  font-size:1.2rem; font-weight:700; color:#fff;">
-           Register as Influencer
-        </a>
-    </div>
+    <a href="influencers.html" 
+       style="text-decoration:none; background:#6a11cb; padding:14px 28px; border-radius:40px; 
+              font-size:1.2rem; font-weight:700; color:#fff;">
+       Register as Influencer
+    </a>
+</div>
   
 </header>
 
@@ -297,28 +499,26 @@
     <br>
    
        
-        <div style="display:flex;   height: 600px;" >
-            <div style="display:flex;  flex-direction: column; "> 
-             <img style="border-radius: 50%;   width: 200px; margin-top:50px;
-    height: 200px;" src="https://img.freepik.com/premium-vector/social-media-influencer-illustration-with-man-holding-megaphone-different-social-media-icons_162329-422.jpg">
-    <img  style="border-radius: 50%;   width: 150px; margin-top: 70px;
-    height: 150px;" src="assets/img/img2.gif">
-<img  style="border-radius: 50%;   width: 170px; margin-top: 160px; margin-left: 80px;
-    height: 170px;" src="https://img.freepik.com/free-vector/influencer-woman-recording-new-video_23-2148546360.jpg?semt=ais_hybrid&w=740&q=80">    
+       <div class="flex-images" style="display:flex; height: 600px; width: 100vw;">
+
+            <div  class="con"> 
+             <img  src="assets/img/img3.avif">
+    <img   src="assets/img/img2.gif">
+<img   src="assets/img/img4.avif">    
 </div>
 
        
-        <img src="https://www.myhaulstore.com/media/MHS-Images//social-media-influencer-agency-india-/social-media-influencer-agency-india-01.png"> 
+        <img src="assets/img/midimg.png"> 
         
 
-         <div >
+         <div class="la" >
             <img style="border-radius: 50%;   width: 250px;
     height: 250px;
     " src="assets/img/img1.gif">
          </div>
 
  <div class="video-container" style="text-align:center;">
-  <video id="videoPlayer" width="300" style="box-shadow: 0 0 50px black;"  autoplay muted playsinline></video>
+  <video id="videoPlayer"  style="box-shadow: 0 0 50px black;" autoplay muted></video>
   <h3 id="videoName" style="color:white; margin-top:10px;"></h3>
 </div>
 <script>
@@ -420,24 +620,23 @@ setInterval(changeVideo, 3000);
   <div class="slider-track" id="videoTrack">
 
     <!-- Original videos -->
-    <video class="vv" src="assets/slides/VID-20251112-WA0006.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0007.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0008.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0009.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0010.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0011.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0012.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0013.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0014.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0015.mp4" muted loop autoplay playsinline></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0006.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0007.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0008.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0009.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0010.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0011.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0012.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0013.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0014.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0015.mp4" muted loop autoplay></video>
 
     <!-- Duplicate set for seamless loop -->
-    <video class="vv" src="assets/slides/VID-20251112-WA0016.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0017.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0018.mp4" muted loop autoplay playsinline></video>
-    <video class="vv" src="assets/slides/VID-20251112-WA0019.mp4" muted loop autoplay playsinline></video>
-  
-
+    <video class="vv" src="/assets/slides/VID-20251112-WA0016.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0017.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0018.mp4" muted loop autoplay></video>
+    <video class="vv" src="/assets/slides/VID-20251112-WA0019.mp4" muted loop autoplay></video>
+   
   </div>
 </div>
 
