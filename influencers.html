@@ -30,13 +30,13 @@
         font-size: 38px;
         font-weight: 700;
         margin-top: 30px;
-        margin-left:400px;
+        margin-left:150px;
        text-shadow: 0 2px 10px black;
        font-size: 70px;
     }
 
     .container {
-        width: 1300px;
+        width: 60%;
         margin: 50px auto;
         display: flex;
         background: rgba(255, 255, 255, 0.15);
@@ -45,7 +45,7 @@
         overflow: hidden;
     }
 
-    .image-box {
+    /* .image-box {
         width: 45%;
         background: white;
         display: flex;
@@ -58,10 +58,10 @@
         width: 100%;
         border-radius: 10px;
         object-fit: cover;
-    }
+    } */
 
     .form-box {
-        width: 55%;
+        width: 90%;
         padding: 30px 40px;
         display: flex;
         align-items: center;
@@ -166,6 +166,18 @@ section {
         line-height: 30px;
         margin-top: 20px;
     }
+        nav a {
+        color: #ffd700;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 25px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
     @media (max-width: 768px) {
 
     /* HEADER */
@@ -173,6 +185,7 @@ section {
         padding: 15px;
         text-align: center;
         height: auto;
+       
     }
     .logo{
          width: 30px;
@@ -186,32 +199,32 @@ section {
     .welcome-heading {
          font-size: 28px;
         margin: 10px 0;
-        margin-left: 20px;
+        margin-left: 80px;
         text-shadow: 0 0 50px black;
     }
 
     /* CONTAINER */
     .container {
-        width: 80%;
+        width: 60%;
         height: 600px;
         flex-direction: row;
         margin: 20px auto;
     }
 
     /* IMAGE BOX */
-    .image-box {
+    /* .image-box {
         width: 50%;
         padding: 5px;
     }
 
     .image-box video {
         height: 100%;
-    }
+    } */
 
     /* FORM BOX */
     .form-box {
-        width: 50%;
-        padding: 10px;
+        width: 90%;
+        padding: 20px;
     }
 
     fieldset {
@@ -288,14 +301,17 @@ section {
 <header>
     <img src="logo.png" alt="Logo" class="logo">
     <h1 class="welcome-heading">Welcome Influencer ✨</h1>
+     <nav>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
 </header>
 
 
 
-<!-- 
 <div class="container">
 
-    <div class="image-box" style="position:relative;">
+    <!-- <div class="image-box" style="position:relative;">
 
     <video id="brandVideo" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;">
         <source src="vd.mp4" type="video/mp4">
@@ -320,7 +336,7 @@ btn.addEventListener("click", () => {
         btn.textContent = "🔇"; 
     } else {
         btn.textContent = "🔊"; 
-        video.play(); 
+        video.play();
     }
 });
 </script> -->
@@ -379,10 +395,7 @@ btn.addEventListener("click", () => {
                     
                 </div>
 
-                <label style="margin-top:10px; display:flex; gap:6px; align-items:center;">
-                    <input type="checkbox" id="agree" required>
-                    I agree to the <a href="agreement.html" target="_blank">Terms & Conditions</a>
-                </label>
+               
 
                 <button type="submit">Register Now</button>
             </form>
