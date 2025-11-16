@@ -346,7 +346,7 @@ btn.addEventListener("click", () => {
         <fieldset>
             <legend>Register as Influencer</legend>
 
-            <form id="influencerForm" onsubmit="return validateForm()">
+            <form id="influencerForm">
                 <div class="form-grid">
                     
                         <label>Full Name</label>
@@ -385,10 +385,10 @@ btn.addEventListener("click", () => {
                         <input type="number" id="zip" placeholder="500001" required>
                     
                         <label>Platform</label>
-                        <input type="number" id="zip" placeholder="Ex: Instagram, youtube..." required>
+                        <input type="text" id="platform" placeholder="Ex: Instagram, youtube..." required>
                     
                         <label>Category</label>
-                        <input type="number" id="zip" placeholder="Ex: Fastion, Food etc.," required>
+                        <input type="text" id="category" placeholder="Ex: Fastion, Food etc.," required>
                     
 
 
@@ -423,30 +423,75 @@ btn.addEventListener("click", () => {
 </section>
 
 <script>
-function validateForm() {
+document.getElementById("influencerForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent page reload
+
     let email = document.getElementById("email").value.trim();
     let phone = document.getElementById("phone").value.trim();
     let followers = document.getElementById("followers").value.trim();
 
+    // ✅ Email Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // ✅ Phone Validation
     if (!/^[0-9]{10}$/.test(phone)) {
         alert("Phone number must be exactly 10 digits.");
-        return false;
+        return;
     }
 
-    if (followers < 1000) {
-        alert("Minimum 1000 followers required.");
-        return false;
+    // ✅ Followers Validation
+    if (followers < 10000) {
+        alert("Minimum 10000 followers required.");
+        return;
     }
 
-    if (!document.getElementById("agree").checked) {
-        alert("You must agree to the Terms & Conditions.");
-        return false;
-    }
+    // Prepare data
+    const data = {
+        name: document.getElementById("name").value,
+        phone: phone,
+        email: email,
+        followers: followers,
+        instagram: document.getElementById("insta").value,
+        youtube: document.getElementById("youtube").value,
+        state: document.getElementById("state").value,
+        district: document.getElementById("district").value,
+        zip: document.getElementById("zip").value,
+        platform: document.getElementById("platform").value,
+        category: document.getElementById("category").value
+    };
 
-    alert("Registration Successful!");
-    return true;
-}
+    // Send data to backend
+    fetch("http://localhost:8080/api/influencer/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Server error: " + res.status);
+        }
+        return res.json();
+    })
+    .then(result => {
+        alert(
+            "Registration Successful!\n" +
+            "Referral Code: " + result.referralCode + 
+            "\n\n⚠ Please take a screenshot of your referral code!"
+        );
+
+        document.getElementById("influencerForm").reset();
+    })
+    .catch(err => {
+        alert("❌ Something went wrong: " + err);
+    });
+});
 </script>
+
+
 
 </body>
 </html>
