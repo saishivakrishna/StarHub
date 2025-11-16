@@ -292,15 +292,16 @@ section {
 
 
 
+<!-- 
 <div class="container">
 
     <div class="image-box" style="position:relative;">
 
-    <!-- <video id="brandVideo" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;">
+    <video id="brandVideo" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;">
         <source src="vd.mp4" type="video/mp4">
-    </video> -->
+    </video>
 
-    <!-- Speaker Button -->
+   
     <button id="soundToggle"
         style="position:absolute; bottom:20px; right:20px; background:rgba(0,0,0,0.5);
                border:none; color:white; padding:10px 12px; border-radius:50%; cursor:pointer;
@@ -313,16 +314,16 @@ const video = document.getElementById("brandVideo");
 const btn = document.getElementById("soundToggle");
 
 btn.addEventListener("click", () => {
-    video.muted = !video.muted;  // Toggle sound mute/unmute
+    video.muted = !video.muted;  
 
     if (video.muted) {
-        btn.textContent = "🔇"; // Mute icon
+        btn.textContent = "🔇"; 
     } else {
-        btn.textContent = "🔊"; // Sound icon
-        video.play(); // Ensure video continues playing after unmute
+        btn.textContent = "🔊"; 
+        video.play(); 
     }
 });
-</script>
+</script> -->
 
 
     <div class="form-box">
