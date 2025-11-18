@@ -465,7 +465,7 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
     };
 
     // Send data to backend
-    fetch("http://localhost:8080/api/influencer/register", {
+    fetch("https://stat2xhubbackend.onrender.com/api/influencer/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
