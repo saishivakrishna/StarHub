@@ -61,6 +61,7 @@
     } */
 
     .form-box {
+        
         width: 90%;
         padding: 30px 40px;
         display: flex;
@@ -206,7 +207,7 @@ section {
     /* CONTAINER */
     .container {
         width: 90%;
-        height: 600px;
+        height: 700px;
         flex-direction: row;
         margin: 20px auto;
     }
@@ -223,6 +224,7 @@ section {
 
     /* FORM BOX */
     .form-box {
+        
         width: 90%;
         padding: 20px;
     }
@@ -389,6 +391,26 @@ btn.addEventListener("click", () => {
                     
                         <label>Category</label>
                         <input type="text" id="category" placeholder="Ex: Fastion, Food etc.," required>
+
+
+
+                        <label>Phone Number</label>
+<input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
+
+<!-- 🔹 SEND OTP BUTTON -->
+<button type="button" id="sendOtpBtn" style="background:#00eaff;margin-top:5px;">
+    Send OTP
+</button>
+
+<!-- 🔹 OTP INPUT BOX -->
+
+<input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+
+<!-- 🔹 VERIFY OTP BUTTON -->
+<button type="button" id="verifyOtpBtn" style="background:#48ff00;margin-top:5px;">
+    Verify OTP
+</button>
+
                     
 
 
@@ -421,35 +443,110 @@ btn.addEventListener("click", () => {
         📍 Address: Hyderabad, Telangana, India
     </div>
 </section>
-
 <script>
+
+// ============================================
+// GLOBAL FLAG
+// ============================================
+let sessionId = null;
+let isOtpVerified = false;
+
+
+
+// ============================================
+// SEND OTP
+// ============================================
+document.getElementById("sendOtpBtn").addEventListener("click", function () {
+
+    let phone = document.getElementById("phone").value.trim();
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Enter a valid 10-digit phone number.");
+        return;
+    }
+
+    fetch("https://stat2xhubbackend.onrender.com/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phone })
+    })
+    .then(res => res.json())
+    .then(data => {
+        sessionId = data.Details;   // ✔ SAVE sessionId
+        alert("📩 OTP Sent Successfully!");
+    })
+    .catch(err => alert("Error sending OTP: " + err));
+});
+
+
+
+// ============================================
+// VERIFY OTP
+// ============================================
+document.getElementById("verifyOtpBtn").addEventListener("click", function () {
+
+    let otp = document.getElementById("otp").value.trim();
+
+    if (otp.length !== 6) {
+        alert("OTP must be 6 digits.");
+        return;
+    }
+
+    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?sessionId=${sessionId}&otp=${otp}`, {
+        method: "POST"
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Invalid OTP");
+        return res.text();
+    })
+    .then(msg => {
+        isOtpVerified = true;
+        alert("✅ OTP Verified Successfully!");
+    })
+    .catch(err => {
+        isOtpVerified = false;
+        alert("❌ OTP Invalid or Expired");
+    });
+});
+
+
+
+// ============================================
+// REGISTRATION FORM SUBMIT
+// ============================================
 document.getElementById("influencerForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
+
+    // ⛔ STOP if OTP not verified
+    if (!isOtpVerified) {
+        alert("⚠ Please verify your OTP before registering.");
+        return;
+    }
 
     let email = document.getElementById("email").value.trim();
     let phone = document.getElementById("phone").value.trim();
     let followers = document.getElementById("followers").value.trim();
 
-    // ✅ Email Validation
+    // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert("Please enter a valid email address.");
         return;
     }
 
-    // ✅ Phone Validation
+    // Phone Validation
     if (!/^[0-9]{10}$/.test(phone)) {
         alert("Phone number must be exactly 10 digits.");
         return;
     }
 
-    // ✅ Followers Validation
+    // Followers Validation
     if (followers < 10000) {
         alert("Minimum 10000 followers required.");
         return;
     }
 
-    // Prepare data
+    // Prepare Data
     const data = {
         name: document.getElementById("name").value,
         phone: phone,
@@ -459,12 +556,12 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
         youtube: document.getElementById("youtube").value,
         state: document.getElementById("state").value,
         district: document.getElementById("district").value,
-        zip: document.getElementById("zip").value,
+        zipcode: document.getElementById("zip").value,
         platform: document.getElementById("platform").value,
         category: document.getElementById("category").value
     };
 
-    // Send data to backend
+    // Send to Backend
     fetch("https://stat2xhubbackend.onrender.com/api/influencer/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -479,17 +576,20 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
     .then(result => {
         alert(
             "Registration Successful!\n" +
-            "Referral Code: " + result.referralCode + 
+            "Referral Code: " + result.referralCode +
             "\n\n⚠ Please take a screenshot of your referral code!"
         );
 
         document.getElementById("influencerForm").reset();
+        isOtpVerified = false; // reset after success
     })
     .catch(err => {
         alert("❌ Something went wrong: " + err);
     });
 });
+
 </script>
+
 
 
 

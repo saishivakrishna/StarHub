@@ -200,7 +200,7 @@
 
     /* Container stays side-by-side */
     .container {
-        width: 60%;         /* 👉 Your required width */
+        width: 90%;         /* 👉 Your required width */
         height: 600px;      /* 👉 Fixed height */
         flex-direction: row;
         margin-top: 20px;
@@ -360,8 +360,7 @@ btn.addEventListener("click", () => {
                 <label>Business Email</label>
                 <input type="email" id="email" placeholder="Enter business email" required>
 
-                <label>Phone Number</label>
-                <input type="tel" id="phone" placeholder="10 digit phone number" maxlength="10" required>
+              
 
                 <label>Location</label>
 
@@ -373,13 +372,32 @@ btn.addEventListener("click", () => {
                 <div class="flex-row">
                     <input type="text" id="pincode" placeholder="PIN Code" maxlength="6" required>
                     <input type="text" id="landmark" placeholder="Landmark / Street Name" required>
-                </div>
+              </div>
 
                 <label>Website / Social Media Link</label>
                 <input type="text" id="website" placeholder="Website / Instagram / Facebook URL">
 
                 <label>Tell us about your product</label>
                 <textarea id="aboutProduct" placeholder="Describe your brand or product" rows="3" required></textarea>
+
+
+                  <label>Phone Number</label>
+<input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
+
+<!-- 🔹 SEND OTP BUTTON -->
+<button type="button" id="sendOtpBtn" style="background:#00eaff;margin-top:5px; margin-bottom: 10px;">
+    Send OTP
+</button>
+
+<!-- 🔹 OTP INPUT BOX -->
+
+<input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+
+<!-- 🔹 VERIFY OTP BUTTON -->
+<button type="button" id="verifyOtpBtn" style="background:#48ff00;margin-top:5px; margin-bottom: 10px">
+    Verify OTP
+</button>
+
 
                 <button type="submit">Register</button>
 
@@ -408,33 +426,132 @@ btn.addEventListener("click", () => {
         📍 Address: Hyderabad, Telangana, India
     </div>
 </section>
-
 <script>
-function validateForm() {
-    let phone = document.getElementById("phone").value;
-    let pin = document.getElementById("pincode").value;
-    let email = document.getElementById("email").value;
+
+// ============================================
+// GLOBAL FLAGS
+// ============================================
+let sessionId = null;
+let isOtpVerified = false;
+
+
+
+// ============================================
+// SEND OTP
+// ============================================
+document.getElementById("sendOtpBtn").addEventListener("click", function () {
+
+    let phone = document.getElementById("phone").value.trim();
 
     if (!/^[0-9]{10}$/.test(phone)) {
-        alert("Phone number must be exactly 10 digits.");
-        return false;
+        alert("Enter a valid 10-digit phone number.");
+        return;
     }
 
-    if (!/^[0-9]{6}$/.test(pin)) {
-        alert("PIN Code must be exactly 6 digits.");
-        return false;
+    fetch("https://stat2xhubbackend.onrender.com/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phone })
+    })
+    .then(res => res.json())
+    .then(data => {
+        sessionId = data.Details;
+        alert("📩 OTP Sent Successfully!");
+    })
+    .catch(err => alert("Error sending OTP: " + err));
+});
+
+
+
+// ============================================
+// VERIFY OTP
+// ============================================
+document.getElementById("verifyOtpBtn").addEventListener("click", function () {
+
+    let otp = document.getElementById("otp").value.trim();
+
+    if (otp.length !== 6) {
+        alert("OTP must be 6 digits.");
+        return;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Enter a valid email address.");
-        return false;
+    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?sessionId=${sessionId}&otp=${otp}`, {
+        method: "POST"
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Invalid OTP");
+        return res.text();
+    })
+    .then(msg => {
+        isOtpVerified = true;
+        alert("✅ OTP Verified Successfully!");
+    })
+    .catch(err => {
+        isOtpVerified = false;
+        alert("❌ OTP Invalid or Expired");
+    });
+});
+
+
+
+// ============================================
+// BRAND REGISTRATION SUBMIT
+// ============================================
+document.getElementById("brandForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // OTP CHECK
+    if (!isOtpVerified) {
+        alert("⚠ Please verify your OTP before registering.");
+        return;
     }
 
-    alert("Registration successful!");
-    return true;
-}
+    // Validate email
+    let email = document.getElementById("email").value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email.");
+        return;
+    }
+
+    // Prepare Brand Data
+    const brandData = {
+        brandName: document.getElementById("brandName").value,
+        owner: document.getElementById("owner").value,
+        email: email,
+        phone: document.getElementById("phone").value,
+        state: document.getElementById("state").value,
+        district: document.getElementById("district").value,
+        pincode: document.getElementById("pincode").value,
+        landmark: document.getElementById("landmark").value,
+        website: document.getElementById("website").value,
+        aboutProduct: document.getElementById("aboutProduct").value
+    };
+
+    // Send to Backend
+    fetch("https://stat2xhubbackend.onrender.com/api/brand/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(brandData)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Server Error");
+        return res.json();
+    })
+    .then(result => {
+        alert("🎉 Brand Registered Successfully!");
+
+        document.getElementById("brandForm").reset();
+        isOtpVerified = false;
+    })
+    .catch(err => {
+        alert("❌ Something went wrong: " + err);
+    });
+});
+
 </script>
+
+
 
 </body>
 </html>
