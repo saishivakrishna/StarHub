@@ -392,7 +392,10 @@ btn.addEventListener("click", () => {
                         <label>Category</label>
                         <input type="text" id="category" placeholder="Ex: Fastion, Food etc.," required>
 
+                         <label>referral Code</label>
+                         <input type="text" id="referrals">
 
+                        
 
                         <label>Phone Number</label>
 <input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
@@ -448,13 +451,11 @@ btn.addEventListener("click", () => {
 // ============================================
 // GLOBAL FLAG
 // ============================================
-let sessionId = null;
 let isOtpVerified = false;
 
 
-
 // ============================================
-// SEND OTP
+// SEND OTP (Twilio)
 // ============================================
 document.getElementById("sendOtpBtn").addEventListener("click", function () {
 
@@ -470,9 +471,8 @@ document.getElementById("sendOtpBtn").addEventListener("click", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phone })
     })
-    .then(res => res.json())
-    .then(data => {
-        sessionId = data.Details;   // ✔ SAVE sessionId
+    .then(res => res.text())
+    .then(msg => {
         alert("📩 OTP Sent Successfully!");
     })
     .catch(err => alert("Error sending OTP: " + err));
@@ -481,10 +481,11 @@ document.getElementById("sendOtpBtn").addEventListener("click", function () {
 
 
 // ============================================
-// VERIFY OTP
+// VERIFY OTP (Twilio)
 // ============================================
 document.getElementById("verifyOtpBtn").addEventListener("click", function () {
 
+    let phone = document.getElementById("phone").value.trim();
     let otp = document.getElementById("otp").value.trim();
 
     if (otp.length !== 6) {
@@ -492,7 +493,7 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
         return;
     }
 
-    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?sessionId=${sessionId}&otp=${otp}`, {
+    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?phone=${phone}&otp=${otp}`, {
         method: "POST"
     })
     .then(res => {
@@ -558,7 +559,8 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
         district: document.getElementById("district").value,
         zipcode: document.getElementById("zip").value,
         platform: document.getElementById("platform").value,
-        category: document.getElementById("category").value
+        category: document.getElementById("category").value,
+        referrals: document.getElementById("referrals").value,
     };
 
     // Send to Backend
