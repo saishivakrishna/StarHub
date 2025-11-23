@@ -356,8 +356,7 @@ btn.addEventListener("click", () => {
                     
 
                 
-                        <label>Phone Number</label>
-                        <input type="tel" id="phone" placeholder="10 Digit Number" maxlength="10" required>
+                      
                     
 
                     
@@ -449,13 +448,15 @@ btn.addEventListener("click", () => {
 <script>
 
 // ============================================
-// GLOBAL FLAG
+// GLOBAL FLAGS
 // ============================================
+let sessionId = null;
 let isOtpVerified = false;
 
 
+
 // ============================================
-// SEND OTP (Twilio)
+// SEND OTP (Your Backend → 2Factor)
 // ============================================
 document.getElementById("sendOtpBtn").addEventListener("click", function () {
 
@@ -471,8 +472,15 @@ document.getElementById("sendOtpBtn").addEventListener("click", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phone })
     })
-    .then(res => res.text())
-    .then(msg => {
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.status !== "OTP_SENT") {
+            alert("❌ Failed to send OTP");
+            return;
+        }
+
+        sessionId = data.sessionId;   // backend returns this
         alert("📩 OTP Sent Successfully!");
     })
     .catch(err => alert("Error sending OTP: " + err));
@@ -480,12 +488,12 @@ document.getElementById("sendOtpBtn").addEventListener("click", function () {
 
 
 
+
 // ============================================
-// VERIFY OTP (Twilio)
+// VERIFY OTP
 // ============================================
 document.getElementById("verifyOtpBtn").addEventListener("click", function () {
 
-    let phone = document.getElementById("phone").value.trim();
     let otp = document.getElementById("otp").value.trim();
 
     if (otp.length !== 6) {
@@ -493,16 +501,19 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
         return;
     }
 
-    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?phone=${phone}&otp=${otp}`, {
+    fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?sessionId=${sessionId}&otp=${otp}`, {
         method: "POST"
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Invalid OTP");
-        return res.text();
-    })
-    .then(msg => {
-        isOtpVerified = true;
-        alert("✅ OTP Verified Successfully!");
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.status === "VALID") {
+            isOtpVerified = true;
+            alert("✅ OTP Verified Successfully!");
+        } else {
+            isOtpVerified = false;
+            alert("❌ Invalid OTP");
+        }
     })
     .catch(err => {
         isOtpVerified = false;
@@ -512,13 +523,13 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
 
 
 
+
 // ============================================
 // REGISTRATION FORM SUBMIT
 // ============================================
 document.getElementById("influencerForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // ⛔ STOP if OTP not verified
     if (!isOtpVerified) {
         alert("⚠ Please verify your OTP before registering.");
         return;
@@ -526,7 +537,7 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
 
     let email = document.getElementById("email").value.trim();
     let phone = document.getElementById("phone").value.trim();
-    let followers = document.getElementById("followers").value.trim();
+    let followers = Number(document.getElementById("followers").value.trim());
 
     // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -541,13 +552,12 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
         return;
     }
 
-    // Followers Validation
+    // Followers validation
     if (followers < 10000) {
         alert("Minimum 10000 followers required.");
         return;
     }
 
-    // Prepare Data
     const data = {
         name: document.getElementById("name").value,
         phone: phone,
@@ -563,19 +573,14 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
         referrals: document.getElementById("referrals").value,
     };
 
-    // Send to Backend
     fetch("https://stat2xhubbackend.onrender.com/api/influencer/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error("Server error: " + res.status);
-        }
-        return res.json();
-    })
+    .then(res => res.json())
     .then(result => {
+
         alert(
             "Registration Successful!\n" +
             "Referral Code: " + result.referralCode +
@@ -583,15 +588,13 @@ document.getElementById("influencerForm").addEventListener("submit", function (e
         );
 
         document.getElementById("influencerForm").reset();
-        isOtpVerified = false; // reset after success
+        isOtpVerified = false;
+        otpSessionId = "";
     })
-    .catch(err => {
-        alert("❌ Something went wrong: " + err);
-    });
+    .catch(err => alert("❌ Something went wrong: " + err));
 });
 
 </script>
-
 
 
 

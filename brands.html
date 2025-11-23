@@ -437,7 +437,7 @@ let isOtpVerified = false;
 
 
 // ============================================
-// SEND OTP
+// SEND OTP (Your Backend → 2Factor)
 // ============================================
 document.getElementById("sendOtpBtn").addEventListener("click", function () {
 
@@ -455,11 +455,18 @@ document.getElementById("sendOtpBtn").addEventListener("click", function () {
     })
     .then(res => res.json())
     .then(data => {
-        sessionId = data.Details;
+
+        if (data.status !== "OTP_SENT") {
+            alert("❌ Failed to send OTP");
+            return;
+        }
+
+        sessionId = data.sessionId;   // backend returns this
         alert("📩 OTP Sent Successfully!");
     })
     .catch(err => alert("Error sending OTP: " + err));
 });
+
 
 
 
@@ -478,13 +485,16 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
     fetch(`https://stat2xhubbackend.onrender.com/api/otp/verify?sessionId=${sessionId}&otp=${otp}`, {
         method: "POST"
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Invalid OTP");
-        return res.text();
-    })
-    .then(msg => {
-        isOtpVerified = true;
-        alert("✅ OTP Verified Successfully!");
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.status === "VALID") {
+            isOtpVerified = true;
+            alert("✅ OTP Verified Successfully!");
+        } else {
+            isOtpVerified = false;
+            alert("❌ Invalid OTP");
+        }
     })
     .catch(err => {
         isOtpVerified = false;
@@ -494,27 +504,26 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
 
 
 
+
 // ============================================
 // BRAND REGISTRATION SUBMIT
 // ============================================
 document.getElementById("brandForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // OTP CHECK
     if (!isOtpVerified) {
         alert("⚠ Please verify your OTP before registering.");
         return;
     }
 
-    // Validate email
     let email = document.getElementById("email").value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(email)) {
         alert("Please enter a valid email.");
         return;
     }
 
-    // Prepare Brand Data
     const brandData = {
         brandName: document.getElementById("brandName").value,
         owner: document.getElementById("owner").value,
@@ -528,16 +537,12 @@ document.getElementById("brandForm").addEventListener("submit", function (e) {
         aboutProduct: document.getElementById("aboutProduct").value
     };
 
-    // Send to Backend
     fetch("https://stat2xhubbackend.onrender.com/api/brand/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(brandData)
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Server Error");
-        return res.json();
-    })
+    .then(res => res.json())
     .then(result => {
         alert("🎉 Brand Registered Successfully!");
 
