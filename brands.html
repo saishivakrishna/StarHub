@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="logo.png">
 <title>Brand Registration - Influencer Connect Hub</title>
 
 <style>
@@ -548,6 +549,7 @@ document.getElementById("brandForm").addEventListener("submit", function (e) {
 
         document.getElementById("brandForm").reset();
         isOtpVerified = false;
+         window.location.href = "success.html";
     })
     .catch(err => {
         alert("❌ Something went wrong: " + err);

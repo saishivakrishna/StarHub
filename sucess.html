@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Welcome to Star2XClub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f6fbf8;
+      --card: #ffffff;
+      --accent: #16a34a; /* green */
+      --accent-soft: #e6ffef; /* very light green */
+      --muted: #6b7280;
+      --glass: rgba(255,255,255,0.6);
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+     background: linear-gradient(135deg, #4b0082, #6a11cb, #2575fc);
+      color:#0f172a;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .container{
+      width:100%;
+      max-width:820px;
+      background:var(--card);
+      border-radius:16px;
+      box-shadow:0 8px 30px rgba(2,6,23,0.08);
+      padding:36px;
+    }
+    header{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:0.2px;
+      font-weight:700;
+    }
+    .success-box{
+      background: linear-gradient(180deg, #f0fff4 0%, #e6fff0 100%);
+      border:1px solid #d1f7dc;
+      padding:20px 18px;
+      border-radius:12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin:18px 0 8px 0;
+    }
+    .success-icon{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:var(--accent);
+      color:white;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(22,163,74,0.18);
+      flex-shrink:0;
+    }
+    .success-text{
+      font-size:16px;
+      font-weight:600;
+      color:#064e2d;
+    }
+    .muted{color:var(--muted); font-weight:400}
+    .refer{
+      margin-top:18px;
+      padding:18px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfffb);
+      border:1px solid rgba(6,95,70,0.06);
+    }
+    .refer p{margin:0 0 12px 0; font-weight:600}
+    .ref-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .ref-input{
+      flex:1 1 360px;
+      display:flex;
+      gap:8px;
+    }
+    input[type='text']{padding:10px 12px;border-radius:8px;border:1px solid #e6eef0;flex:1;font-size:14px}
+    button{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .secondary{background:transparent;color:var(--accent);border:1px solid rgba(22,163,74,0.12)}
+    .info{font-size:13px;color:var(--muted);margin-top:12px}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:520px){
+      h1{font-size:22px}
+      .container{padding:20px}
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <header>
+      <h1>Welcome to Star2XClub</h1>
+      <p class="muted">Thanks for joining — your journey starts here.</p>
+    </header>
+
+    <section aria-labelledby="success">
+      <div class="success-box" id="success">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <div>
+          <div class="success-text">Your registration was successful</div>
+          <div class="info">We will review your data and contact you soon.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="refer" aria-labelledby="refer-heading">
+      <h2 id="refer-heading" style="font-size:16px;margin:0 0 10px 0">Refer 10 members and get cash offers</h2>
+      <p>Your phone number will be used as your referral ID. Example: <strong>Referral ID: 987456123</strong></p>
+    </section>
+
+    <footer>
+      <small>Need help? Reply to the confirmation email or visit our support page.</small>
+    </footer>
+  </main>
+
+  <script>
+    const copyBtn = document.getElementById('copyBtn');
+    const refLink = document.getElementById('refLink');
+    const shareBtn = document.getElementById('shareBtn');
+
+    copyBtn.addEventListener('click', async () => {
+      try{
+        await navigator.clipboard.writeText(refLink.value);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=> copyBtn.textContent = 'Copy', 2000);
+      }catch(e){
+        // fallback
+        refLink.select();
+        document.execCommand('copy');
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=> copyBtn.textContent = 'Copy', 2000);
+      }
+    });
+
+    shareBtn.addEventListener('click', ()=>{
+      if (navigator.share) {
+        navigator.share({
+          title: 'Join Star2XClub',
+          text: 'Join Star2XClub and earn rewards when you refer friends!',
+          url: refLink.value
+        }).catch(()=>{});
+      } else {
+        // basic fallback: open mailto
+        window.location.href = `mailto:?subject=Join Star2XClub&body=Register using my link: ${encodeURIComponent(refLink.value)}`;
+      }
+    });
+  </script>
+</body>
+</html>
